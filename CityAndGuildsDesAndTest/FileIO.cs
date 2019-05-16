@@ -55,6 +55,7 @@ namespace CityAndGuildsDesAndTest
         internal static FileReadReturnType FileRead(string path)
         {
             List<Course> myCourseList = new List<Course>();
+            List<Course> myOrderedCourseList;
 
             FileReadReturnType myReturnType = new FileReadReturnType();
             // Open the text file using a stream reader.
@@ -76,9 +77,12 @@ namespace CityAndGuildsDesAndTest
                         }
                     }
                 }
-                myReturnType.Courses = myCourseList;
+
+                myOrderedCourseList = myCourseList.OrderByDescending(x => DateTime.Parse(x.Date)).ToList();
+                myReturnType.Courses = myOrderedCourseList;
                 myReturnType.Success = true;
                 myReturnType.Ex = null;
+               
                 return myReturnType;
             }
             catch(Exception ex)
